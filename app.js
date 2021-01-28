@@ -1,27 +1,29 @@
 require("dotenv").config()
-const mongoose = require("mongoose");
 const express = require("express");
-const app = express();
+const { json, urlencoded } = require("body-parser");
 const users = require("./controllers/users");
 const products = require("./controllers/products");
+const connect = require("./helper").connect;
+const app = express();
 
+app.use(urlencoded({ extended: true }));
+app.use(json());
 
+app.post("/product", products.createProduct);
 
-app.post("/product");
+app.get("/product/:name", products.findProductByName);
+app.put("/product/:name", products.updateProductByName);
+app.delete("/product/:name", products.deleteProductByName);
 
-app.get("/product/:name");
-app.put("/product/:name");
-app.delete("/product/:name");
+app.get("/products", products.findAllProducts);
 
-app.get("/products");
+app.post("/user", users.createUser);
 
-app.post("/user");
+app.get("/user/:username", users.findUserByUsername);
+app.put("/user/:username", users.updateUserByUsername);
+app.delete("/user/:username", users.deleteUserByUsername);
 
-app.get("/user/:username");
-app.put("/user/:username");
-app.delete("/user/:username");
-
-app.get("/users");
+app.get("/users", users.findAllUsers);
 
 app.get("/product_id/:id");
 app.put("/product_id/:id");
@@ -45,7 +47,7 @@ app.get("/login");
 
 
 
-mongoose.connect("mongodb://localhost:27017/homework-api")
+connect("mongodb://localhost:27017/homework-api")
     .then(() => {
         app.listen(process.env.PORT || 3000, () => {
             console.log("Server started.");
