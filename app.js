@@ -25,26 +25,19 @@ app.delete("/user/:username", users.deleteUserByUsername);
 
 app.get("/users", users.findAllUsers);
 
-app.get("/product_id/:id");
-app.put("/product_id/:id");
-app.delete("/product_id/:id");
+app.get("/product_id/:id", products.findProductById);
+app.put("/product_id/:id", products.updateProductById);
+app.delete("/product_id/:id", products.deleteProductById);
 
-app.put("/product_dec/:id");
-app.put("/product_inc/:id");
-app.get("/product_num/:id");
-
-
-
-
+app.put("/product_dec/:id", products.decrementQuantity);
+app.put("/product_inc/:id", products.incrementQuantity);
+app.get("/product_num/:id", products.productQuantity);
 
 app.get("/user");
 app.put("/user");
 app.delete("/user");
 
-
-
 app.get("/login");
-
 
 
 connect("mongodb://localhost:27017/homework-api")
