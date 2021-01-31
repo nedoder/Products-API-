@@ -1,5 +1,6 @@
 const Product = require("../models/product");
 
+//creating product
 const createProduct = async function(req, res) {
     try {
         const productCreate = req.body;
@@ -11,6 +12,7 @@ const createProduct = async function(req, res) {
 
 };
 
+//finding product by name
 const findProductByName = async function(req, res) {
     try {
         const productName = req.params.name;
@@ -21,6 +23,7 @@ const findProductByName = async function(req, res) {
     }
 };
 
+//finding all products
 const findAllProducts = async function(req, res) {
     try {
         let result = await Product.find({}).exec();
@@ -30,6 +33,7 @@ const findAllProducts = async function(req, res) {
     }
 };
 
+//updating product by name
 const updateProductByName = async function(req, res) {
     try {
         const productName = { name: req.params.name };
@@ -41,6 +45,7 @@ const updateProductByName = async function(req, res) {
     }
 };
 
+//deleting product by name
 const deleteProductByName = async function(req, res) {
     try {
         const productName = req.params.name;
@@ -55,6 +60,7 @@ const deleteProductByName = async function(req, res) {
     }
 };
 
+//finding product by id
 const findProductById = async function(req, res) {
     try {
         const productId = req.params.id;
@@ -70,6 +76,7 @@ const findProductById = async function(req, res) {
 
 };
 
+//updating product by id
 const updateProductById = async function(req, res) {
     try {
         const productID = { _id: req.params.id };
@@ -81,6 +88,7 @@ const updateProductById = async function(req, res) {
     }
 };
 
+//deleting product by id
 const deleteProductById = async function(req, res) {
     try {
         const productID = req.params.id;
@@ -95,6 +103,7 @@ const deleteProductById = async function(req, res) {
     }
 };
 
+//decrementing quantity
 const decrementQuantity = async function(req, res) {
     try {
         const productID = { _id: req.params.id };
@@ -109,6 +118,7 @@ const decrementQuantity = async function(req, res) {
     }
 };
 
+//incrementing quantity
 const incrementQuantity = async function(req, res) {
     try {
         const productID = { _id: req.params.id };
@@ -123,6 +133,7 @@ const incrementQuantity = async function(req, res) {
     }
 };
 
+//selecting quantity of the product
 const productQuantity = async function(req, res) {
     try {
         const productID = { _id: req.params.id };

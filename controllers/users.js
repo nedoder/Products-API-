@@ -1,17 +1,29 @@
+const crypto = require("crypto");
 const User = require("../models/user");
 
-
+//creating user
 const createUser = async function(req, res) {
     try {
         const userCreate = req.body;
-        const userNew = await User.create(userCreate);
-        res.status(201).json(userNew.toJSON())
+        const password = req.body["password"];
+        const validatePassword = (password) => {
+            const reg = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/;
+            return reg.test(password);
+        };
+        if (validatePassword(password)) {
+            req.body["password"] = crypto.createHash('sha256').update(req.body["password"]).digest('hex');
+            const userNew = await User.create(userCreate);
+            res.status(201).json(userNew.toJSON());
+        } else {
+            res.status(500).json("Password must have one capital letter, one small letter and a digit");
+        }
     } catch (err) {
         res.json(err);
     }
 
 };
 
+//finding user by username
 const findUserByUsername = async function(req, res) {
     try {
         const userName = req.params.username;
@@ -22,8 +34,7 @@ const findUserByUsername = async function(req, res) {
     }
 };
 
-
-
+//finding all users
 const findAllUsers = async function(req, res) {
     try {
         let result = await User.find({}).exec();
@@ -33,6 +44,7 @@ const findAllUsers = async function(req, res) {
     }
 };
 
+//updating user by username
 const updateUserByUsername = async function(req, res) {
     try {
         const userName = { username: req.params.username };
@@ -44,6 +56,7 @@ const updateUserByUsername = async function(req, res) {
     }
 };
 
+//deleting user by username
 const deleteUserByUsername = async function(req, res) {
     try {
         const userName = req.params.username;

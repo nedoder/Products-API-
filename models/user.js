@@ -3,27 +3,27 @@ const mongoose = require("mongoose");
 const User = new mongoose.Schema({
     username: {
         type: String,
-        required: true,
-        minlength: 3,
-        maxlength: 20,
+        required: [true, "You must enter username"],
+        minlength: [3, "Username must me at least 3 characters long"],
+        maxlength: [20, "Username cannot be longer than 20 characters"],
         index: { unique: true }
     },
     password: {
         type: String,
-        required: true,
-        minlength: 5,
-        maxlength: 64
+        required: [true, "You must enter password"],
+        minlength: [5, "Password must me at least 5 characters long"],
+        maxlength: [64, "Username cannot be longer than 25 characters"]
     },
     email: {
         type: String,
-        required: true,
-        minlength: 5,
-        maxlength: 35,
+        required: [true, "You must enter email"],
+        minlength: [5, "Email must me at least 5 characters long"],
+        maxlength: [35, "Email cannot be longer than 35 characters"],
         unique: true
     },
     role: {
         type: Boolean,
-        required: true
+        required: [true, "You must enter a role"]
     },
     product: [{
         type: mongoose.Schema.Types.ObjectId,
