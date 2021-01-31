@@ -16,7 +16,7 @@ app.post("/product", auth.verifyToken, products.createProduct);
 //route for getting product by product name
 app.get("/product/:name", auth.verifyToken, products.findProductByName);
 //route for updating product by product name
-app.put("/product/:name", auth.verifyToken, products.updateProductByName);
+app.patch("/product/:name", auth.verifyToken, products.updateProductByName);
 //route for deleting product by product name
 app.delete("/product/:name", auth.verifyToken, products.deleteProductByName);
 
@@ -29,7 +29,7 @@ app.post("/user", users.createUser);
 //route for getting user by username
 app.get("/user/:username", auth.verifyToken, users.findUserByUsername);
 //route for updating user by username
-app.put("/user/:username", auth.verifyToken, users.updateUserByUsername);
+app.patch("/user/:username", auth.verifyToken, users.updateUserByUsername);
 //route for deleting user by username
 app.delete("/user/:username", auth.verifyToken, users.deleteUserByUsername);
 
@@ -40,7 +40,7 @@ app.get("/users", auth.verifyToken, users.findAllUsers);
 //route for getting product by id
 app.get("/product_id/:id", auth.verifyToken, products.findProductById);
 //route for updating product by id
-app.put("/product_id/:id", auth.verifyToken, products.updateProductById);
+app.patch("/product_id/:id", auth.verifyToken, products.updateProductById);
 //route for deleting product by id
 app.delete("/product_id/:id", auth.verifyToken, products.deleteProductById);
 
