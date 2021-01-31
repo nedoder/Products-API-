@@ -4,6 +4,8 @@ const Product = require("../models/product");
 const createProduct = async function(req, res) {
     try {
         const productCreate = req.body;
+        let name = await Product.findOne({ name: req.body["name"] });
+        if (name) return res.status(400).send("Name already exists! Choose another one.");
         const productNew = await Product.create(productCreate);
         res.status(201).json(productNew.toJSON())
     } catch (err) {

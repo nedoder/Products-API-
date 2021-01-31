@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const User = require("../models/user");
 
-//creating user
+//creating user, validating password and hashing it if validated, checking if username and email is unique
 const createUser = async function(req, res) {
     try {
         const userCreate = req.body;
@@ -12,6 +12,10 @@ const createUser = async function(req, res) {
         };
         if (validatePassword(password)) {
             req.body["password"] = crypto.createHash('sha256').update(req.body["password"]).digest('hex');
+            let user = await User.findOne({ username: req.body["username"] });
+            if (user) return res.status(400).send("Username already exists! Choose another one.");
+            let email = await User.findOne({ email: req.body["email"] });
+            if (email) return res.status(400).send("Email already exists! Choose another one.");
             const userNew = await User.create(userCreate);
             res.status(201).json(userNew.toJSON());
         } else {
